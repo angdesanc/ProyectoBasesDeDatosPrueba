@@ -3,6 +3,7 @@ import mysql.connector
 miConexion = mysql.connector.connect(host="localhost", user="root", passwd="Meliodas1999",db="panaderia_all_sweet")
 ####################################################################################################################################
 
+# Soy Emily
 # FUNCION QUE PERMITE OBSERVAR TODOS LOS PRODUCTOS DISPONIBLES PARA EL CLIENTE
 def verProductos():
     cur1=miConexion.cursor()
