@@ -3,7 +3,6 @@ import mysql.connector
 miConexion = mysql.connector.connect(host="localhost", user="root", passwd="Meliodas1999",db="panaderia_all_sweet")
 ####################################################################################################################################
 
-# Soy Emily
 # FUNCION QUE PERMITE OBSERVAR TODOS LOS PRODUCTOS DISPONIBLES PARA EL CLIENTE
 def verProductos():
     cur1=miConexion.cursor()
@@ -62,85 +61,171 @@ def mostrarPedidos(nombre):
     print("{:60} {:40} {:20} ".format("numero de pedido", "nombre producto", "estado"))
     for data in cur3.fetchall():
         print("{:60} {:40} {:20} ".format(str(data[0]), data[1], data[2]))
-
+#######################################################################################################
 def obtenerNombre(usuario):
     cur3=miConexion.cursor()
     cur3.execute("select * from pastelero")
     for nombre in cur3.fetchall():
         if usuario==nombre[0]:
             return nombre[2]
+####################################################################################################################
+def RegistrarCliente():
+    usuario = input("ingrese su usuario: ")
+    clave = input("ingrese la contraseña: ")
+    nombre = input("ingrese nombre: ")
+    direccion = input("ingrese direccion: ")
+    correo = input("ingrese un correo: ")
+    cur3=miConexion.cursor()
+    sql="""
+    insert into cliente values ('{0}','{1}','{2}','{3}','{4}')""".format(usuario,clave,nombre,direccion,correo)
+    cur3.execute(sql)
+    miConexion.commit()
 
+#################################################################################################################
+def RegistrarPastelero():
+    usuario = input("ingrese su usuario: ")
+    clave = input("ingrese la contraseña: ")
+    nombre = input("ingrese nombre: ")
+    direccion = input("ingrese direccion: ")
+    correo = input("ingrese un correo: ")
+    cur3=miConexion.cursor()
+    sql="""
+    insert into pastelero values ('{0}','{1}','{2}','{3}','{4}')""".format(usuario,clave,nombre,direccion,correo)
+    cur3.execute(sql)
+    miConexion.commit()
+##################################################################################################################
+def aggProducto(codPastelero):
+    codProd= input("Ingrese codigo del producto: ")
+    nombreProd= input("Ingrese nombre del producto: ")
+    cant= input("ingrese la cantidad de productos disponibles: ")
+    precio= input("Ingrese el precio del producto: ")
+    categoria= input("ingrese la categoria del producto: ")
+    cur3=miConexion.cursor()
+    sql="""
+    insert into producto values('{0}','{1}','{2}','{3}','{4}','{5}',)
+    """.format(codProd,nombreProd,cant,precio,categoria,codPastelero)
+    cur3.execute(sql)
+    miConexion.commit()
+
+##################################################################################################
+def verCalificacion(usuario):
+    cur3=miConexion.cursor()
+    sql="""
+    select codCalificacion,puntajeCalProd,puntajePuntualidad,puntajeSaborProd,p.nombre as pastelero,c.fechaCalificacion
+    from (calificacion c join cliente cl on c.codigoUsuario=cl.usuario) join pastelero p on c.codigoPastelero=p.usuario
+    where codigoUsuario= '{0}' """.format(usuario)
+    cur3.execute(sql)
+    print("{:60} {:50} {:40} {:30} {:20} {:10} ".format("cod calificacion", "P. CalidadProd", "p. Puntualidad","P. SaborProd","Pastelero","fecha Calificacion"))
+    for data in cur3.fetchall():
+        print("{:60} {:50} {:40} {:30} {:20} {:10}".format(data[0], str(data[1]), str(data[2]),str(data[3]),data[4],str(data[5])))
 
 
 
 # MENU DE LA APLICACION
 
-print("Sistema de Panaderias All_sweet")
-print("1. registrarse")
-print("2. iniciar sesion")
-print("3. salir")
+
 opcion =0
 
 # MENU PRINCIPAL
 while (opcion != 3):
-    opcion= int(input("Ingrese una opcion: "))
-    if opcion ==1:
-        print("xxxx")
-        verProductos()
-    if opcion==2:
+    print("Sistema de Panaderias All_sweet")
+    print("1. registrarse")
+    print("2. iniciar sesion")
+    print("3. salir")
+    opcion= input("Ingrese una opcion: ")
+    if(opcion.isdigit()):
+        opcion = int(opcion)
+        if opcion ==1:
 
-        usuario = input("ingrese su usuario: ")
-        contrasena = input("ingrese la contraseña: ")
+            registro=0
+            while registro!=3:
+                print("Para registrarse, digite:")
+                print("1. como cliente")
+                print("2. como pastelero")
+                print("3. regresar")
+                registro = input("digite su opcion para el registro: ")
+                if registro.isdigit():
+                    registro=int(registro)
+                    if registro ==1:
+                        #verProductos()
+                        RegistrarCliente()
+                        print("se ha registrado con exito")
+                        registro=3
+                    if registro ==2:
+                        RegistrarPastelero()
+                        print("se ha registrado con exito")
+                        registro = 3
+        if opcion==2:
 
-        if(usuario==inicioSesionCliente(usuario,contrasena)):
-            print("ha iniciado sesion con usuario cliente")
-            print("1. ver productos disponibles")
-            print("2. gestionar compra")
-            print("3. fin de sesion")
-            nuevaOpcion=0
+            usuario = input("ingrese su usuario: ")
+            contrasena = input("ingrese la contraseña: ")
 
-            # MENU DEL CLIENTE
+            if(usuario==inicioSesionCliente(usuario,contrasena)):
 
-            while (nuevaOpcion!=3):
-                nuevaOpcion = int(input("Ingrese una opcion: "))
+                nuevaOpcion=0
 
-                #  VER TODOS LOS PRODUCTOS
-                if nuevaOpcion == 1:
-                    verProductos()
+                # MENU DEL CLIENTE
 
-                if  nuevaOpcion==2:
-                    print("zzz")
+                while (nuevaOpcion!=4):
+                    print("ha iniciado sesion con usuario cliente")
+                    print("1. ver productos disponibles")
+                    print("2. gestionar compra")
+                    print("3. ver calificaciones")
+                    print("4. fin de sesion")
+                    nuevaOpcion =input("Ingrese una opcion: ")
 
-                # FINALIZAR SESION
-                if nuevaOpcion==3:
-                    print("ha finalizado sesion correctamente")
-        elif(usuario==inicioSesionPastelero(usuario,contrasena)):
-            print("ha iniciado sesion con usuario Pastelero")
-            print("1. ver productos del dia")
-            print("2. ver pedidos y sus productos")
-            print("3. fin de sesion")
-            nuevaOpcion2 = 0
 
-            # MENU DEL PASTELERO
+                    #  VER TODOS LOS PRODUCTOS
+                    if nuevaOpcion.isdigit():
+                        nuevaOpcion=int(nuevaOpcion)
+                        if nuevaOpcion == 1:
+                            verProductos()
 
-            while (nuevaOpcion2 != 3):
-                nuevaOpcion2 = int(input("Ingrese una opcion: "))
+                        if  nuevaOpcion==2:
+                            print("zzz")
 
-                # VER LOS PRODUCTOS QUE HA AGREGADO EL PASTELERO
-                if nuevaOpcion2 == 1:
-                    verProductosPastelero(usuario)
+                        if nuevaOpcion==3:
+                            verCalificacion(usuario)
 
-                # PEDIDOS QUE PUEDE GESTIONAR EL PASTELERO
-                if nuevaOpcion2== 2:
-                    nombre= obtenerNombre(usuario)
-                    mostrarPedidos(nombre)
+                        # FINALIZAR SESION
+                        if nuevaOpcion==4:
+                            print("ha finalizado sesion correctamente")
+            elif(usuario==inicioSesionPastelero(usuario,contrasena)):
 
-                if nuevaOpcion2 == 3:
-                    print("ha finalizado sesion correctamente")
-    if opcion==3:
-        print("gracias por preferirnos vuelva pronto")
+                nuevaOpcion2 = 0
+
+                # MENU DEL PASTELERO
+
+                while (nuevaOpcion2 != 4):
+                    print("ha iniciado sesion con usuario Pastelero")
+                    print("1. ver productos del dia")
+                    print("2. ver pedidos y sus productos")
+                    print("3. Agregar productos")
+                    print("4. fin de sesion")
+                    nuevaOpcion2 = input("Ingrese una opcion: ")
+                    if nuevaOpcion2.isdigit():
+                        nuevaOpcion2=int(nuevaOpcion2)
+                    # VER LOS PRODUCTOS QUE HA AGREGADO EL PASTELERO
+                        if nuevaOpcion2 == 1:
+                            verProductosPastelero(usuario)
+
+                        # PEDIDOS QUE PUEDE GESTIONAR EL PASTELERO
+                        if nuevaOpcion2== 2:
+                            nombre= obtenerNombre(usuario)
+                            mostrarPedidos(nombre)
+
+                        if nuevaOpcion2 == 3:
+                            aggProducto(usuario)
+                            print("Se ha agregado el producto exitosamente")
+
+                        if nuevaOpcion2 == 4:
+                            print("ha finalizado sesion correctamente")
+
+        if opcion==3:
+            print("gracias por preferirnos vuelva pronto")
+
+
 
 
 
 miConexion.close()
-
