@@ -1,3 +1,5 @@
+import numpy as np
+from datetime import date
 import mysql.connector
 # SE ESTABLECE LA CONEXION CON LA BASE DE DATOS PANADERIA_ALL_SWEET
 miConexion = mysql.connector.connect(host="localhost", user="root", passwd="Eduybeca8850",db="panaderia_all_sweet")
@@ -62,20 +64,34 @@ def mostrarPedidos(nombre):
     for data in cur3.fetchall():
         print("{:60} {:40} {:20} ".format(str(data[0]), data[1], data[2]))
 #######################################################################################################
-def obtenerNombre(usuario):
+def obtenerNombreP(usuario):
     cur3=miConexion.cursor()
     cur3.execute("select * from pastelero")
     for nombre in cur3.fetchall():
         if usuario==nombre[0]:
             return nombre[2]
 ####################################################################################################################
-def obtenerUsuario(nombre):
+def obtenerUsuarioP(nombre):
     cur4=miConexion.cursor()
     cur4.execute("select * from pastelero")
     for usuario in cur4.fetchall():
         if nombre==usuario[2]:
             return usuario[0]
-##########################################################################################################3
+##########################################################################################################
+def obtenerNombreC(usuario):
+    cur3=miConexion.cursor()
+    cur3.execute("select * from cliente")
+    for nombre in cur3.fetchall():
+        if usuario==nombre[0]:
+            return nombre[2]
+####################################################################################################################
+def obtenerUsuarioC(nombre):
+    cur4=miConexion.cursor()
+    cur4.execute("select * from cliente")
+    for usuario in cur4.fetchall():
+        if nombre==usuario[2]:
+            return usuario[0]
+##########################################################################################################
 def RegistrarCliente():
     usuario = input("ingrese su usuario: ")
     clave = input("ingrese la contraseña: ")
@@ -138,6 +154,93 @@ def verPasteleros():
         listaPasteleros.append(data[0])
     return listaPasteleros
 
+#########################################################################################################
+def verProductosPasteleroLista(usuario):
+    Lista=[]
+    cur3=miConexion.cursor()
+    sql = """
+    select codProducto, producto.nombre, cantStock, precio, nombreCategoria
+    from (pastelero join producto on usuario=usuarioPastelero)join categoria on numCategoria=idCategoria
+    where usuarioPastelero='{0}'
+    """.format(usuario)
+    cur3.execute(sql)
+    for data in cur3.fetchall():
+        Lista.append(list(data))
+    return Lista
+########################################################################################################
+ListaAL=[]
+def elegirProductos():
+
+    for i, info in enumerate(verPasteleros()):
+        print(f"{i}.- {info}")
+
+    opcionP = input("Escoja  un pastelero: ")
+    if opcionP.isdigit():
+        opcionP = int(opcionP)
+        usuarioP = obtenerUsuarioP(verPasteleros()[opcionP])
+        print("Pastelero: ", verPasteleros()[opcionP])
+        verProductosPastelero(usuarioP)
+        lista_usar=verProductosPasteleroLista(usuarioP)
+        solPed=input("Desea realizar un pedido?(S/N): ").upper()
+        if solPed=="S":
+            resp="S"
+            while resp!="N":
+                listaProdPastInt = []
+                codp_cant=input("Ingrese codigo del producto y la cantidad separado por una coma:")
+                cod, cant=codp_cant.split(",")
+
+                for i in lista_usar:
+                    if i[0]==cod:
+                        listaProdPastInt.append(cod)
+                        listaProdPastInt.append(i[3])
+                        listaProdPastInt.append(int(cant))
+                        listaProdPastInt.append(float("%.2f"%(i[3]*int(cant))))
+                        ListaAL.append(listaProdPastInt)
+                resp=input("Desea agregar otro producto?(S/N): ").upper()
+            print("Su pedido se ha generado con éxito")
+#########################################################################################
+def crearFactura(nombre,envio, metodoPago):
+    datosfact=[]
+    datosfact.append("111")
+    fecha= date.today()
+    datosfact.append(str(fecha))
+    #for i, info in enumerate(ListaAL):
+    separador=""
+    detalle=separador.join(str(ListaAL))
+    datosfact.append(str(detalle))
+    subtotal=0
+    for j, infoj in enumerate(ListaAL):
+        subtotal+=infoj[3]
+
+    datosfact.append(str(subtotal))
+    if envio=="S":
+
+        valorTotal = "%.2f"%(((subtotal*0.12)+subtotal)+5)
+        datosfact.append(str(valorTotal))
+        datosfact.append(str(5))
+    else:
+
+        valorTotal="%.2f"%((subtotal*0.12)+subtotal)
+        datosfact.append(str(valorTotal))
+        datosfact.append(str(0))
+    datosfact.append(str(metodoPago))
+    datosfact.append(str(obtenerUsuarioC(nombre)))
+    datosfact.append(str(1))
+    print(datosfact)
+    cur3=miConexion.cursor()
+    sql="""
+    insert into factura values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8})
+    """.format(datosfact[0],datosfact[1],datosfact[2],datosfact[3], datosfact[4],datosfact[5],datosfact[6], datosfact[7], datosfact[8])
+    cur3.execute(sql)
+    miConexion.commit()
+    return datosfact
+
+
+
+
+
+
+
 # MENU DE LA APLICACION
 
 opcion =0
@@ -198,24 +301,13 @@ while (opcion != 3):
                             verProductos()
 
                         if nuevaOpcion==2:
-
-                            for i, info in enumerate(verPasteleros()):
-                                print(f"{i}.- {info}")
-
-                            opcionP =input("Escoja  un pastelero: ")
-                            if opcionP.isdigit():
-                                opcionP=int(opcionP)
-                                usuarioP=obtenerUsuario(verPasteleros()[opcionP])
-                                print("Pastelero: ", verPasteleros()[opcionP])
-                                verProductosPastelero(usuarioP)
-                                resp="N"
-                                while resp=="S":
-
-
-
-
-                                    resp=input("Desea continuar(S/N): ")
-
+                            elegirProductos()
+                            print(ListaAL)
+                            print("Creacion de factura")
+                            nombreC=input("Ingrese su nombre:")
+                            envio=input("Desea envío(S/N): ").upper()
+                            metodoPago=input("Ingrese su método de pago: ")
+                            crearFactura(nombreC, envio, metodoPago)
 
                         if nuevaOpcion==3:
                             verCalificacion(usuario)
@@ -244,7 +336,7 @@ while (opcion != 3):
 
                         # PEDIDOS QUE PUEDE GESTIONAR EL PASTELERO
                         if nuevaOpcion2== 2:
-                            nombre= obtenerNombre(usuario)
+                            nombre= obtenerNombreP(usuario)
                             mostrarPedidos(nombre)
 
                         if nuevaOpcion2 == 3:
