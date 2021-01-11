@@ -114,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610334285284</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;demo.py">
+      <created>1610335945094</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1610335945094</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -141,29 +148,29 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1610329974525" />
-    <state width="1515" height="229" key="GridCell.Tab.0.bottom" timestamp="1610335424828">
+    <state width="1515" height="229" key="GridCell.Tab.0.bottom" timestamp="1610338244610">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="229" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1610335424828" />
-    <state width="1515" height="229" key="GridCell.Tab.0.center" timestamp="1610335424828">
+    <state width="1515" height="229" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1610338244610" />
+    <state width="1515" height="229" key="GridCell.Tab.0.center" timestamp="1610338244609">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="229" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1610335424828" />
-    <state width="1515" height="229" key="GridCell.Tab.0.left" timestamp="1610335424828">
+    <state width="1515" height="229" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1610338244609" />
+    <state width="1515" height="229" key="GridCell.Tab.0.left" timestamp="1610338244609">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="229" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1610335424828" />
-    <state width="1515" height="229" key="GridCell.Tab.0.right" timestamp="1610335424828">
+    <state width="1515" height="229" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1610338244609" />
+    <state width="1515" height="229" key="GridCell.Tab.0.right" timestamp="1610338244609">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="229" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1610335424828" />
-    <state x="407" y="174" key="MultipleFileMergeDialog" timestamp="1610334315137">
+    <state width="1515" height="229" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1610338244609" />
+    <state x="407" y="174" key="MultipleFileMergeDialog" timestamp="1610335967904">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="407" y="174" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1610334315137" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1610334325584">
+    <state x="407" y="174" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1610335967904" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1610335978090">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1610334325584" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1610335978090" />
   </component>
 </project>

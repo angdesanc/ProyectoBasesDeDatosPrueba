@@ -98,6 +98,9 @@ def RegistrarCliente():
     nombre = input("ingrese nombre: ")
     direccion = input("ingrese direccion: ")
     correo = input("ingrese un correo: ")
+    while ('@'not in correo):
+        print('Él correo no es valido.')
+        correo = input('Ingrese un correo: ')
     cur3=miConexion.cursor()
     sql="""
     insert into cliente values ('{0}','{1}','{2}','{3}','{4}')""".format(usuario,clave,nombre,direccion,correo)
@@ -111,6 +114,9 @@ def RegistrarPastelero():
     nombre = input("ingrese nombre: ")
     direccion = input("ingrese direccion: ")
     correo = input("ingrese un correo: ")
+    while ('@'not in correo):
+        print('Él correo no es valido.')
+        correo = input('Ingrese un correo: ')
     cur3=miConexion.cursor()
     sql="""
     insert into pastelero values ('{0}','{1}','{2}','{3}','{4}')""".format(usuario,clave,nombre,direccion,correo)
@@ -121,6 +127,9 @@ def aggProducto(codPastelero):
     codProd= input("Ingrese codigo del producto: ")
     nombreProd= input("Ingrese nombre del producto: ")
     cant= input("ingrese la cantidad de productos disponibles: ")
+    while not (cant.isdigit()):
+        print('Cantidad incorrecta')
+        cant=input('Ingrese la cantidad delproducto disponible: ')
     precio= input("Ingrese el precio del producto: ")
     categoria= input("ingrese la categoria del producto: ")
     cur3=miConexion.cursor()
@@ -175,39 +184,45 @@ def elegirProductos():
         print(f"{i}.- {info}")
 
     opcionP = input("Escoja  un pastelero: ")
-    if opcionP.isdigit():
-        opcionP = int(opcionP)
-        usuarioP = obtenerUsuarioP(verPasteleros()[opcionP])
-        print("Pastelero: ", verPasteleros()[opcionP])
-        verProductosPastelero(usuarioP)
-        lista_usar=verProductosPasteleroLista(usuarioP)
-        solPed=input("Desea realizar un pedido?(S/N): ").upper()
-        if solPed=="S":
-            resp="S"
-            while resp!="N":
-                listaProdPastInt = []
-                codp_cant=input("Ingrese codigo del producto y la cantidad separado por una coma:")
-                cod, cant=codp_cant.split(",")
+    while not (opcionP.isdigit()):
+        print('No existe pastelero. Intente de nuevo.')
+        opcionP=input('Esccoja un pastelero: ')
 
-                for i in lista_usar:
-                    if i[0]==cod:
-                        listaProdPastInt.append(cod)
-                        listaProdPastInt.append(i[3])
-                        listaProdPastInt.append(int(cant))
-                        listaProdPastInt.append(float("%.2f"%(i[3]*int(cant))))
-                        ListaAL.append(listaProdPastInt)
-                resp=input("Desea agregar otro producto?(S/N): ").upper()
-            print("Su pedido se ha generado con éxito")
+    opcionP = int(opcionP)
+    usuarioP = obtenerUsuarioP(verPasteleros()[opcionP])
+    print("Pastelero: ", verPasteleros()[opcionP])
+    verProductosPastelero(usuarioP)
+    lista_usar=verProductosPasteleroLista(usuarioP)
+    solPed=input("Desea realizar un pedido?(S/N): ").upper()
+    while not (solPed =='S' or solPed =='N'):
+        print('Opcion incorrecta. Intente de nnuevo')
+        solPed = input("Desea realizar un pedido?(S/N): ").upper()
+    if solPed=="S":
+        resp="S"
+        while resp!="N":
+            listaProdPastInt = []
+            codp_cant=input("Ingrese codigo del producto y la cantidad separado por una coma:")
+            cod, cant=codp_cant.split(",")
+
+            for i in lista_usar:
+                if i[0]==cod:
+                    listaProdPastInt.append(cod)
+                    listaProdPastInt.append(i[3])
+                    listaProdPastInt.append(int(cant))
+                    listaProdPastInt.append(float("%.2f"%(i[3]*int(cant))))
+                    ListaAL.append(listaProdPastInt)
+            resp=input("Desea agregar otro producto?(S/N): ").upper()
+        print("Su pedido se ha generado con éxito")
 #########################################################################################
 def crearFactura(nombre,envio, metodoPago):
     datosfact=[]
-    datosfact.append("888")
+    datosfact.append("678")
     fecha= date.today()
     datosfact.append(str(fecha))
     #for i, info in enumerate(ListaAL):
     datosBackup=[]   #   ["cod1,10,2,3","cod2,2,5,6"]
     for i in ListaAL:
-        x= str(i[0])+","+str(1)+","+str(2)+","+str(3)
+        x= str(i[0])+","+str(i[1])+","+str(i[2])+","+str(i[3])
         datosBackup.append(x)
 
     detalle=",".join(datosBackup)
@@ -258,6 +273,9 @@ while (opcion != 3):
     print("2. iniciar sesion")
     print("3. salir")
     opcion= input("Ingrese una opcion: ")
+    while (not opcion.isdigit()) or 1>int(opcion) or int(opcion)>3:
+        print('Opcion no valida. Intente de nuevo.')
+        opcion = input("Ingrese una opcion: ")
     if(opcion.isdigit()):
         opcion = int(opcion)
         if opcion ==1:
