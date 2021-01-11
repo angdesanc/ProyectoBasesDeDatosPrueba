@@ -1,4 +1,4 @@
-
+import numpy as np
 from datetime import date
 import mysql.connector
 # SE ESTABLECE LA CONEXION CON LA BASE DE DATOS PANADERIA_ALL_SWEET
@@ -201,18 +201,25 @@ def elegirProductos():
 #########################################################################################
 def crearFactura(nombre,envio, metodoPago):
     datosfact=[]
-    datosfact.append("148")
+    datosfact.append("888")
     fecha= date.today()
     datosfact.append(str(fecha))
-    for h, inf in enumerate(ListaAL):
-        detalle=str(inf[2])+" "+inf[0]
-        datosfact.append(str(detalle))
+    #for i, info in enumerate(ListaAL):
+    datosBackup=[]   #   ["cod1,10,2,3","cod2,2,5,6"]
+    for i in ListaAL:
+        x= str(i[0])+","+str(1)+","+str(2)+","+str(3)
+        datosBackup.append(x)
+
+    detalle=",".join(datosBackup)
+    datosfact.append(detalle)
+
+
 
     subtotal=0
     for j, infoj in enumerate(ListaAL):
         subtotal+=infoj[3]
 
-    datosfact.append(subtotal)
+    datosfact.append(str(subtotal))
     if envio=="S":
 
         valorTotal = "%.2f"%(((subtotal*0.12)+subtotal)+5)
@@ -225,21 +232,20 @@ def crearFactura(nombre,envio, metodoPago):
         datosfact.append(str(0))
     datosfact.append(str(metodoPago))
     datosfact.append(str(obtenerUsuarioC(nombre)))
-    datosfact.append(1)
-
+    datosfact.append(str(1))
+    print(datosfact)
     cur3=miConexion.cursor()
     sql="""
     insert into factura values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')
-    """.format(datosfact[0],datosfact[1],datosfact[2],datosfact[3], datosfact[4],datosfact[5],datosfact[6], datosfact[7], datosfact[8])
+    """.format(str(datosfact[0]),str(datosfact[1]),str(datosfact[2]),str(datosfact[3]), str(datosfact[4]),str(datosfact[5]),str(datosfact[6]),str(datosfact[7]), datosfact[8])
     cur3.execute(sql)
     miConexion.commit()
+    return datosfact
 
 
 
 
 
-
-#crearFactura("Nicole Estevez", "S", "Transferencia")
 
 # MENU DE LA APLICACION
 

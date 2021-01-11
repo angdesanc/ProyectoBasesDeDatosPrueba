@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eade4211-ce82-4f25-83dc-448493e3ce0f" name="Default Changelist" comment="se agrego codigo nuevo para ver productos">
+    <list default="true" id="eade4211-ce82-4f25-83dc-448493e3ce0f" name="Default Changelist" comment="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;demo.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo.py" afterDir="false" />
     </list>
@@ -34,6 +34,7 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="Eduan &lt;eamatute@espol.edu.ec&gt;" />
         <option value="angdesan &lt;angdesan@espol.edu.ec&gt;" />
       </list>
     </option>
@@ -106,7 +107,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610328898634</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;demo.py">
+      <created>1610334285284</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1610334285284</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -124,36 +132,38 @@
     <MESSAGE value="se agrego codigo nuevo para ver productos codigo" />
     <MESSAGE value="se agregaro nuevo codigo" />
     <MESSAGE value="se agrego codigo nuevo para ver productos" />
-    <option name="LAST_COMMIT_MESSAGE" value="se agrego codigo nuevo para ver productos" />
+    <MESSAGE value="se agrega nuevo codigo constantemente" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;demo.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;demo.py" />
   </component>
   <component name="WindowStateProjectService">
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1610329974525">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1610329974525" />
-    <state width="1515" height="229" key="GridCell.Tab.0.bottom" timestamp="1610333894486">
+    <state width="1515" height="229" key="GridCell.Tab.0.bottom" timestamp="1610335424828">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="229" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1610333894486" />
-    <state width="1515" height="229" key="GridCell.Tab.0.center" timestamp="1610333894486">
+    <state width="1515" height="229" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1610335424828" />
+    <state width="1515" height="229" key="GridCell.Tab.0.center" timestamp="1610335424828">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="229" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1610333894486" />
-    <state width="1515" height="229" key="GridCell.Tab.0.left" timestamp="1610333894486">
+    <state width="1515" height="229" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1610335424828" />
+    <state width="1515" height="229" key="GridCell.Tab.0.left" timestamp="1610335424828">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="229" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1610333894486" />
-    <state width="1515" height="229" key="GridCell.Tab.0.right" timestamp="1610333894486">
+    <state width="1515" height="229" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1610335424828" />
+    <state width="1515" height="229" key="GridCell.Tab.0.right" timestamp="1610335424828">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="229" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1610333894486" />
-    <state x="407" y="174" key="MultipleFileMergeDialog" timestamp="1610328957678">
+    <state width="1515" height="229" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1610335424828" />
+    <state x="407" y="174" key="MultipleFileMergeDialog" timestamp="1610334315137">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="407" y="174" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1610328957678" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1610328976494">
+    <state x="407" y="174" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1610334315137" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1610334325584">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1610328976494" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1610334325584" />
   </component>
 </project>
