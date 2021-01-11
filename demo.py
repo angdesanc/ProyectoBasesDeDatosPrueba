@@ -256,11 +256,27 @@ def crearFactura(nombre,envio, metodoPago):
     cur3.execute(sql)
     miConexion.commit()
     return datosfact
+def creaPedido(factura, usuario):
+    numPedido="44"
+    cur3=miConexion.cursor()
+    sql="""insert into pedido values ('{0}','{1}','{2}')
+    """.format(numPedido,usuario,str(factura[0]))
+    cur3.execute(sql)
+    miConexion.commit()
+    return numPedido
 
-
-
-
-
+def detallePedido(listaAll,pedido):
+    estado="en espera"
+    codPro=""
+    cant=""
+    cur3=miConexion.cursor()
+    for i in listaAll:
+        codPro=i[0]
+        cant=str(i[2])
+        sql = """insert into detalle_pedido values ('{0}','{1}','{2}','{3}')
+            """.format(cant, estado, codPro,pedido)
+        cur3.execute(sql)
+        miConexion.commit()
 
 # MENU DE LA APLICACION
 
@@ -330,7 +346,9 @@ while (opcion != 3):
                             nombreC=input("Ingrese su nombre:")
                             envio=input("Desea envío(S/N): ").upper()
                             metodoPago=input("Ingrese su método de pago: ")
-                            crearFactura(nombreC, envio, metodoPago)
+                            datosFact = crearFactura(nombreC, envio, metodoPago)
+                            pedido = creaPedido(datosFact, usuario)
+                            detallePedido(ListaAL, pedido)
 
                         if nuevaOpcion==3:
                             verCalificacion(usuario)
