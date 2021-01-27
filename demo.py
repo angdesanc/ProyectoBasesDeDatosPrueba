@@ -213,10 +213,29 @@ def elegirProductos():
                     ListaAL.append(listaProdPastInt)
             resp=input("Desea agregar otro producto?(S/N): ").upper()
         print("Su pedido se ha generado con éxito")
+        print("Creacion de factura")
+        nombreC = input("Ingrese su nombre:")
+        envio = input("Desea envío(S/N): ").upper()
+        metodoPago = input("Ingrese su método de pago: ")
+        datosFact = crearFactura(nombreC, envio, metodoPago)
+        pedido = creaPedido(datosFact, usuario)
+        detallePedido(ListaAL, pedido)
+    else:
+        print("Gracia vuelva pronto.")
 #########################################################################################
 def crearFactura(nombre,envio, metodoPago):
     datosfact=[]
-    datosfact.append("678")
+    cur3 = miConexion.cursor()
+    sql = """
+        select numFactura from factura order by numFactura;
+        """
+    cur3.execute(sql)
+    codigosLista=[]
+    for data in cur3.fetchall():
+        for datainter in data:
+            codigosLista.append(datainter)
+    valorCod=codigosLista[-1]+1
+    datosfact.append(str(valorCod))
     fecha= date.today()
     datosfact.append(str(fecha))
     #for i, info in enumerate(ListaAL):
@@ -256,8 +275,19 @@ def crearFactura(nombre,envio, metodoPago):
     cur3.execute(sql)
     miConexion.commit()
     return datosfact
+
 def creaPedido(factura, usuario):
-    numPedido="44"
+    cur3 = miConexion.cursor()
+    sql = """
+            select noPedido from pedido order by noPedido;
+            """
+    cur3.execute(sql)
+    noPedidosLista = []
+    for data in cur3.fetchall():
+        for datainter in data:
+            noPedidosLista.append(datainter)
+    valorNo = noPedidosLista[-1] + 1
+    numPedido=str(valorNo)
     cur3=miConexion.cursor()
     sql="""insert into pedido values ('{0}','{1}','{2}')
     """.format(numPedido,usuario,str(factura[0]))
@@ -342,13 +372,7 @@ while (opcion != 3):
 
                         if nuevaOpcion==2:
                             elegirProductos()
-                            print("Creacion de factura")
-                            nombreC=input("Ingrese su nombre:")
-                            envio=input("Desea envío(S/N): ").upper()
-                            metodoPago=input("Ingrese su método de pago: ")
-                            datosFact = crearFactura(nombreC, envio, metodoPago)
-                            pedido = creaPedido(datosFact, usuario)
-                            detallePedido(ListaAL, pedido)
+
 
                         if nuevaOpcion==3:
                             verCalificacion(usuario)
